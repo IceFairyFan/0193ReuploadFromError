@@ -5,6 +5,7 @@ import com.application.posapplication.model.RegisterIntModel;
 import com.application.posapplication.model.UserResponse;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -14,13 +15,14 @@ import javax.servlet.http.HttpSession;
 import java.sql.*;
 import java.util.ArrayList;
 
-    @Controller
-    public class LoginController {
-        @RequestMapping("/login")
-        public String login(){
+@Controller
+public class LoginController {
+
+    @RequestMapping("/login")
+    public String login(){
     //        model.addAttribute("title", "a");
-            return "login";
-        }
+        return "login";
+    }
 
     @RequestMapping("/login/submit")
     public @ResponseBody UserResponse login(HttpServletRequest req, @RequestBody LoginModel loginModel, Model model)throws SQLException, JsonProcessingException {
