@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml" lang="">
+<head>
+    <meta charset="utf-8" />
+    <title> Login</title>
+    <link href="css/styles.css" rel="stylesheet" />
+    <link rel="icon" href="assets/icon.svg">
+    <script src="js/Global.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $("#btn_login").click(function(){
+                // alert("Method accessed");
+                var tmplogin = {};
+                tmplogin["email"] = $("#user_email").val();
+                tmplogin["password"] = $("#user_password").val();
+                $.ajax({
+                    url: window.location.origin +'/login/submit',
+                    type: 'POST',
+                    headers:{
+                        'Accept' : 'application/json',
+                        'Content-type' : 'application/json'
+                    },
+                    data: JSON.stringify(tmplogin),
+                    datatype:'json',
+                    success: function(rimdata){
+                        if(rimdata.status){
+                            var q = 0;
+                            $.each(rimdata.data, function(index, item){
+                                window.location.replace(window.location.origin + "/homepage?id=" + item.id);
+                            });
+                            // window.location.replace(window.location.origin + "/homepage?id=" + q);
+                        }else{
+                            alert("You are not a valid user");
+                        }
+                    },
+                    error : function(e){
+                        console.log("ERROR", e);
+                        alert(e);
+                    },
+                    done : function(e){
+                        console.log("DONE");
+                    }
+                });
+            });
+        });
+    </script>
+</head>
+
+
+<body>
+<div class="content-wrapper-login">
+    <div class="login-screen">
+        <div class="login-left">
+        </div>
+
+        <div class="login-right">
+            <div class="containerLogo">
+                <img src="assets/Logo.svg" alt="logo" class="logo">
+            </div>
+
+            <form class="form-login" method="post" action="/login">
+                <div class="title-login">Get Started</div>
+                <div class="login-action">
+                    <h4>Your Email</h4>
+                    <label>
+                        <input type="text" id="user_email" placeholder="Enter your email" required class="validate">
+                    </label>
+                    <h4>Password</h4>
+                    <label>
+                        <input type="password" id="user_password" placeholder="Enter your password" required class="validate">
+                    </label>
+                    <br>
+                    <div class="btn-login">
+                        <div class="inner"></div>
+                        <button type="button" id="btn_login" >Sign In</button>
+
+                    </div>
+                    <div class="register-entry">
+                        <a>Dont have an account?</a>
+                        <a href="/register" style="color:#06369A; text-decoration: none">Register now</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+

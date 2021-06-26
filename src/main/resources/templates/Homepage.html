@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>My Project</title>
+    <link href="css/styles.css" rel="stylesheet" />
+    <link rel="icon" href="assets/icon.svg">
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    <script src="https://kit.fontawesome.com/d043613e45.js"> </script>
+    <script defer src="js/NewProject.js"></script>
+    <script src="js/ProjectTable.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            var fd = new FormData();
+            var tmphomepagevar = {};
+            tmphomepagevar["varHomepageInt"] = $("#varHomepageInty").val();
+            $.urlParam = function(name){
+                var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+                if (results==null){
+                    return null;
+                } else{
+                    return results[1] || 0;
+                }
+            }
+            fd.append('id', $.urlParam('id'));
+            $.ajax({
+                url: window.location.origin+'/getallproject',
+                type: 'POST',
+                data:fd,
+                contentType:false,
+                processData:false,
+                success: function(tmpgetproj){
+                    if(tmpgetproj.status){
+                        var stringtmpproj = "";
+                        var varHomepageInt = 0;
+                        $.each(tmpgetproj.data, function(index, item){
+                            varHomepageInt = varHomepageInt + 1;
+                            stringtmpproj += "<tr><td scope='col' style='width: 25%'><button type='button' class='buttonclick' q='"+item.id+"' value='"+item.projectName+"'>"+item.projectName+"</button></td>" +
+                                "<td scope='col' style='width: 25%'>"+item.companyName+"</td>" +
+                                "<td scope='col' style='width: 50%'>"+item.projectDescription+"</td>"+
+                                "</tr>";
+                        });
+
+                        $("#list_project").replaceWith(stringtmpproj);
+                    }
+                },
+                error : function(e){
+                    console.log("ERROR", e);
+                    alert(e);
+                },
+                done : function(e){
+                    console.log("DONE");
+                }
+            });
+
+            $('body').on('click', '.buttonclick', function(hpid){
+                // $.each(hpid.data, function(index, item){
+                    // window.location.replace(window.location.origin+"/projectdetailfour?id="+item.id);
+                    window.location.replace(window.location.origin+"/projectdetailfour?id="+1);
+                // });
+            });
+
+            $("#btn_new_project-too").click(function(){
+                // var fd = new FormData();
+                // fd.append('projectName', $("#projectName").val());
+                // fd.append('companyName', $("#companyName").val());
+                // fd.append('projectDescription', $("#project_desc").val());
+                // fd.append('id', $.urlParam('id'));
+                var tmphomepage = {};
+                tmphomepage["projectName"] = $("#project_name").val();
+                tmphomepage["companyName"] = $("#company_name").val();
+                tmphomepage["projectDescription"] = $("#project_desc").val();
+                tmphomepage["id"] = $.urlParam('id'); // feeds the ID value, change it like the FormData
+                // tmphomepage["id"] = 0;
+                tmphomepage["homepageProjectID"] = "";
+                // var id = $.urlParam('id');
+                // var projectName = tmphomepage["projectName"];
+                // var companyName = tmphomepage["companyName"];
+                // var projectDescription = tmphomepage["projectDescription"];
+                $.ajax({
+                    url: window.location.origin+'/homepage/post',
+                    type: 'POST',
+                    headers:{
+                        'Accept' : 'application/json',
+                        'Content-type' : 'application/json'
+                    },
+                    data: JSON.stringify(tmphomepage),
+                    datatype:'json',
+                    success: function(hapmList){
+                        if(hapmList.status){
+                            $.each(hapmList.data, function(index, item){
+                                var ids = item.data.id; //This shit wont load because this ids doesn't load correctly
+                                // window.location.replace(window.location.origin+"/projectdetailfour?id="+ids);
+                                window.location.replace(window.location.origin+"/projectdetailfour?id="+ids);
+                                alert("Success");
+                                // alert("Everything went fine");
+                            });
+                        }
+
+                    },
+                    error : function(e){
+                        console.log("ERROR", e);
+                        alert("Something wrong");
+                    },
+                    done : function(e){
+                        console.log("DONE");
+                    }
+                });
+                // alert("Function is finished");
+                // $.ajax({
+                //     url: 'http://localhost:8080/homepage/posthomepage',
+                //     type: 'POST',
+                //     headers:{
+                //         'Accept' : 'application/json',
+                //         'Content-type' : 'application/json'
+                //     },
+                //     data: JSON.stringify(e),
+                //     datatype:'json',
+                //     success: function(ea){
+                //         // alert(tmph);
+                //         // alert("Everything went fine");
+                //     },
+                //     error : function(e){
+                //         console.log("ERROR", e);
+                //         alert("Something wrong");
+                //     },
+                //     done : function(e){
+                //         console.log("DONE");
+                //     }
+                // });
+            });
+        });
+    </script>
+
+</head>
+
+<body>
+<header>
+    <div class="wrapperHome">
+        <div class="containerLogo">
+            <img src="assets/Logo.svg" alt="logo" class="logo">
+        </div>
+    </div>
+</header>
+
+<div class="home-container">
+    <div class="my-project">
+        <div class="my-project-wrapper">
+            <h3 class="home-title-my-project">My Project</h3>
+
+            <button data-modal-target="#modal-project" id="btn-new-project">Add New Project</button>
+            <div class="modal-project" id="modal-project">
+                <div class="new-project-header">
+                    <div class="text-new-project">New Project</div>
+                    <button data-close-button class="close-button">&times;</button>
+                </div>
+
+                <div class="modal-body">
+                    <form action="#">
+                        <div class="data-new-project">
+                            <label> Company Name
+                                <input type="text" placeholder="Input Company Name" id="company_name" required />
+                            </label>
+                        </div>
+
+                        <div class="data-new-project">
+                            <label>Project Name
+                                <input type="text" placeholder="Input Project Name" id="project_name" required/>
+                            </label>
+                        </div>
+
+                        <div class="data-new-project">
+                            <label>Project Description
+                                <textarea placeholder="Input Project Description" rows="7" id="project_desc"> </textarea>
+                            </label>
+                        </div>
+
+
+                        <div class="btn-new-project">
+                            <div class="inner"></div>
+                            <button type="button" id="btn_new_project-too" >Add Project</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div id="overlay"></div>
+        </div>
+
+
+        <div class="file-title-list">
+            <table>
+                <thead>
+                <tr>
+                    <th scope="col" style="width: 25%">Name</th>
+                    <th scope="col" style="width: 25%">Company Name</th>
+                    <th scope="col" style="width: 50%">Project Desc</th>
+                </tr>
+                </thead>
+                <tbody id="list_project">
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

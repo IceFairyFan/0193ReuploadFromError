@@ -1,0 +1,60 @@
+<html lang="en">
+          <head>
+            <meta charset="utf-8">
+          
+            <title>Html Generated</title>
+            <meta name="description" content="Figma htmlGenerator">
+            <meta name="author" content="htmlGenerator">
+            <link href="https://fonts.googleapis.com/css?family=Manrope&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=K2D&display=swap" rel="stylesheet">
+
+            <link rel="stylesheet" href="css/exportuserstory.css">
+            <style>
+              /*
+                Figma Background for illustrative/preview purposes only.
+                You can remove this style tag with no consequence
+              */
+              body {background: #E5E5E5;}
+              </style>
+
+                <script>
+                    $(document).ready(function() {
+                        var fd = new FormData();
+
+                        $.urlParam = function (name) {
+                            var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+                            if (results == null) {
+                                return null;
+                            } else {
+                                return results[1] || 0;
+                            }
+                        }
+
+                        fd.append('id', $.urlParam('id'));
+
+                        $.ajax({
+                            url: window.location.origin+'/export',
+                            type: 'POST',
+                            data: fd,
+                            contentType: false,
+                            processData: false,
+                            success: function (e) {
+                            },
+                            error: function (e) {
+                                console.log("ERROR", e);
+                                alert(e);
+                            },
+                            done: function (e) {
+                                console.log("DONE");
+                            }
+                        });
+                    });
+                </script>
+          
+          </head>
+          
+          <body>
+            <div id="e246_9"><span id="e246_10">User Story</span><span id="e246_12">As an Owner, I want to access Owner Profile page, so that I can edit my profile and seek for legal information.</span><span id="e246_13">As an owner, I want to access Informasi Pribadi page, so that I can edit my personal information.</span><span id="e246_14">As an Owner, I want choose type of my ID, so that i can confirm my identity to ZSoft.</span><span id="e246_15">As an Owner, I want to see my ID verification process, so that i know my ID Verification request status.</span><span id="e246_16">As an Owner, I want to be notified that this feature works better on Mobile Apps, so that I can have better user experience.
+</span><span id="e246_17">As an Owner, I want to upload my ID, so that i can confirm my identity to ZSoft.</span><span id="e246_18">As an Owner, I want to upload my selfie, so that i can confirm my identity to ZSoft.</span><span id="e246_19">Export User Story</span><span id="e246_20">Medium</span><span id="e246_21">Medium</span><span id="e246_22">Medium</span><span id="e246_23">Medium</span><span id="e246_24">Medium</span><span id="e246_25">Medium</span><span id="e246_26">Medium</span><span id="e246_27">Medium</span><span id="e246_28">Medium</span><span id="e246_29">Task Type</span><div id="e246_30"><span id="e246_31">Priority</span></div><div id="e246_33"></div><span id="e246_34">User Story</span><span id="e246_35">User Story</span><span id="e246_36">User Story</span><span id="e246_37">User Story</span><span id="e246_38">User Story</span><span id="e246_39">User Story</span><span id="e246_40">User Story</span><div id="e246_41"><div id="e246_42"><div id="e246_43"></div><span id="e246_44">nids</span></div></div><div id="e246_45"></div><span id="e246_46">Feature Login</span><span id="e246_47">Meeting Date: 22 Oct, 2020</span><span id="e246_50">Edit</span><div id="e246_52"></div><div id="e246_8"></div></div>
+          </body>
+          </html>

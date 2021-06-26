@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Upload</title>
+    <link href="css/styles.css" rel="stylesheet" />
+    <link rel="icon" href="assets/icon.svg">
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    <script src="https://kit.fontawesome.com/d043613e45.js"> </script>
+    <script src="js/MeetingTable.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            var fd = new FormData();
+            $.urlParam = function(name){
+                var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+                if (results==null){
+                    return null;
+                } else{
+                    return results[1] || 0;
+                }
+            }
+            fd.append('id', $.urlParam('id'));
+            $.ajax({
+                url: window.location.origin+'/getallmeetingfour',
+                type: 'POST',
+                data:fd,
+                contentType:false,
+                processData:false,
+                success: function(tmp){
+                    if(tmp.status){
+                        var stringtmp = "";
+                        $.each(tmp.data, function(index, item){
+                            stringtmp += "<tr><td><button type='button' class='buttonclick' q='"+item.id+"' value='"+item.title+"'>"+item.title+"</button></td><td id='itemdate'>"+item.date+"</td></tr>";
+                        });
+
+                        $("#list_meeting").replaceWith(stringtmp);
+
+                    }
+                },
+                error : function(e){
+                    console.log("ERROR", e);
+                    alert(e);
+                },
+                done : function(e){
+                    console.log("DONE");
+                }
+            });
+
+            $('body').on('click', '.buttonclick', function(){
+                var projectDetailFourID = $(this).attr('q');
+                window.location.replace(window.location.origin+"/listuserstories?id="+projectDetailFourID);
+            });
+
+            $("#btn-meeting-submit").click(function(event){
+                event.preventDefault();
+                var fd = new FormData();
+                var id = $.urlParam('id');
+                var file = $("#file-button")[0].files[0];
+
+                fd.append('title', $("#meeting_name").val());
+                fd.append('date', $("#meeting_date").val());
+                fd.append('id', $.urlParam('id'));
+                fd.append('noun', $("#role_us").val());
+                var url = $("#url-file").val();
+                // fd.append('url', url);
+                fd.append('file', file);
+                $.ajax({
+                    url: window.location.origin+'/uploadfour/post',
+                    type: 'POST',
+                    data: fd,
+                    contentType: false,
+                    processData: false,
+                    success: function(tmpupload){
+                        window.location.replace(window.location.origin+"/projectdetailfour?id="+id);
+                    },
+                    error : function(e){
+                        console.log("ERROR", e);
+                        alert(e);
+                    },
+                    done : function(e){
+                        console.log("DONE");
+                    }
+                });
+            });
+        });
+    </script>
+
+</head>
+<body>
+<header>
+    <div class="containerLogo">
+        <img src="assets/Logo.svg" alt="logo" class="logo">
+    </div>
+</header>
+
+<div class="project-header">
+    <div class="project-header-info">
+        <div class="project-header-info-company">
+            <h3 id="company_name"></h3>
+        </div>
+        <div class="project-header-info-title">
+            <h3 id="project_title"></h3>
+        </div>
+        <div class="project-header-info-desc">
+            <p id="project_desc"></p>
+        </div>
+    </div>
+
+
+</div>
+
+<div class="project-button-wrapper">
+    <div class="project-button-new-meeting">
+        <button data-modal-target="#modal-meeting" id="btn_new_meeting">Add New Meeting</button>
+    </div>
+    <div class="modal-meeting" id="modal-meeting">
+        <div class="modal-meeting-header">
+            <button data-close-button class="close-button">&times;</button>
+        </div>
+
+        <div class="modal-body-meeting">
+            <div class="form-outer">
+                <form action="#">
+                    <div class="page slide-page">
+                        <div class="title">
+                            New Meeting
+                        </div>
+
+                        <div class="field">
+                            <div class="label">
+                                Feature Title</div>
+                            <input type="text" placeholder="Feature - Login" id="meeting_name" required />
+                        </div>
+                        <div class="field">
+                            <div class="label">
+                                Meeting Date</div>
+                            <input type="date" id="meeting_date" required/>
+                        </div>
+                        <div class="field">
+                            <div class="label">
+                                Meeting Audio File</div>
+
+<!--                            <input type="file" id="real-file"/>-->
+                            <!--                                <textarea rows="5" cols="32"  id="input"></textarea>-->
+
+                            <!--                            <div class="data">-->
+                            <!--                                <label>Meeting Audio or Video </label>-->
+                            <!--                                <br/>-->
+                            <!--                            </div>-->
+                            <!--                            -->
+                            <div class="btn-file">
+                                <input type="file" id="file-button"> Upload File</input>
+                                <span id="file-text"> No File Choosen Yet</span> <!-- Change this line to the name of the file -->
+                                <script type="text/javascript" src="js/Upload.js"></script>
+                            </div>
+                            <!--                            <input type="text" id="url-file"/>-->
+
+                        </div>
+                        <div class="btns">
+                            <button id="btn-meeting-next">Next</button>
+                        </div>
+                    </div>
+                    <div class="page">
+                        <div class="title">
+                            One Step Away!</div>
+                        <div class="psa-form">
+                            <img src="assets/role.svg" class="img-role" width="150" height="75">
+                            <p>To help us crafting your user story, do you have <b> specific role </b> that interacts with this feature? Simply write "user" if you don't have one.</p>
+                            <div class="role-us-field">
+                                <!--                            <label>Who is the subject of this feature?-->
+                                <input type="text" id="role_us" required placeholder="ex. seller"/>
+                                <!--                            </label>-->
+                            </div>
+                            <p><b>Once your user story is ready, you can find it in your meeting details.</b></p>
+                        </div>
+
+                        <br/>
+                        <div class="psa-form">
+
+                        </div>
+                        <div class="btns">
+                            <button id="btn-meeting-prev">Back</button>
+                            <button id="btn-meeting-submit">Submit</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+
+    <div id="overlay"></div>
+    <div class="project-button-export-us">
+        <button type="button" id="export-all-button">Export All User Stories</button>
+    </div>
+</div>
+
+<div class="meeting-list">
+    <table>
+        <thead>
+        <tr>
+            <th scope="col" style="width: 30%">Title</th>
+            <th scope="col" style="width: 90%">Meeting Date</th>
+        </tr>
+        </thead>
+        <tbody id="list_meeting">
+        <tr>
+            <td></td>
+        </tr>
+
+        </tbody>
+    </table>
+</div>
+
+<script>
+    const slidePage = document.querySelector(".slide-page");
+    const nextBtnFirst = document.querySelector("#btn-meeting-next");
+    const prevBtnSec = document.querySelector("#btn-meeting-prev");
+    const submitBtn = document.querySelector("#btn-meeting-submit");
+
+
+    nextBtnFirst.addEventListener("click", function (event) {
+        event.preventDefault();
+        slidePage.style.marginLeft = "-30%";
+    });
+
+    prevBtnSec.addEventListener("click", function (event) {
+        event.preventDefault();
+        slidePage.style.marginLeft = "0%";
+    });
+
+    const openModalButtons = document.querySelectorAll('[data-modal-target]')
+    const closeModalButtons = document.querySelectorAll('[data-close-button]')
+    const overlay = document.getElementById('overlay')
+
+    openModalButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const modal = document.querySelector(button.dataset.modalTarget)
+            openModal(modal)
+        })
+    })
+
+    overlay.addEventListener('click', () => {
+        const modals = document.querySelectorAll('.modal-meeting.active')
+        modals.forEach(modal => {
+            closeModal(modal)
+        })
+    })
+
+    closeModalButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const modal = button.closest('.modal-meeting')
+            closeModal(modal)
+        })
+    })
+
+    function openModal(modal) {
+        if (modal == null) return
+        modal.classList.add('active')
+        overlay.classList.add('active')
+    }
+
+    function closeModal(modal) {
+        if (modal == null) return
+        modal.classList.remove('active')
+        overlay.classList.remove('active')
+    }
+</script>
+</body>
+</html>

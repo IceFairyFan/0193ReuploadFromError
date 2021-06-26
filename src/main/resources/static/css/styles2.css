@@ -1,0 +1,864 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto');
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap");
+
+
+body{
+    font-family: Roboto;
+    font-weight: 400;
+}
+
+
+.containerLogo {
+    width: 100%;
+    margin: 0 auto;
+
+} /* logo styling */
+
+header {
+    background: #ffffff;
+    box-shadow: 0 1px 4px 0 rgba(153,151,153, 0.2);
+} /* header styling*/
+
+header::after {
+    content:'';
+    display: table;
+    clear: both;
+
+}
+
+.logo {
+    margin-left: 38px;
+    padding: 10px 0;
+
+}
+
+
+nav{
+    float: right;
+
+}
+
+nav ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+}
+
+nav li {
+    display: inline-block;
+    margin-left: 38px;
+    margin-right: 38px;
+    padding-top: 23px;
+    position: relative;
+
+}
+
+
+nav a{
+    color: #444;
+    text-decoration:none;
+    text-transform: uppercase;
+    font-size: 14px;
+
+}
+
+
+
+nav a:hover{
+    color: #000;
+
+}
+
+#custom-button {
+    padding: 8px 15px;
+    color: #06369A;
+    background-color: #fff;
+    border-color: #06369A;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    font-family: 'Roboto';
+    font-size: 16px;
+} /* button for upload meeting audio */
+
+
+#custom-text {
+    margin-left: 5px;
+    font-family: 'Manrope';
+    padding-left: 10px;
+    color: #7F7B81;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+} /* file's name */
+
+
+nav a::before{
+    content:'';
+    display: block;
+    height: 5px;
+    width: 100px;
+    background-color: #444;
+    position: absolute;
+    margin-bottom: 30px;
+
+    transition: all ease-in-out 250ms;
+}
+
+nav a:hover::before{
+    width: 100%;
+
+}
+
+form {
+    margin: auto;
+    width: 100%;
+    text-align: center;
+} /* form meeting information */
+
+.modal-meeting {
+    width: 360px;
+    height: 530px;
+    padding: 40px;
+    box-shadow: 0 0 8px rgba(0,0,0,0.1);
+    border-radius: 20px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    transition: 200ms ease-in-out;
+    z-index: 10;
+    background-color: white;
+    text-align: center;
+}
+/* form meeting information */
+
+.modal-meeting.active {
+    transform: translate(-50%, -50%) scale(1);
+}
+
+
+.modal-meeting .text {
+    font-size: 22px;
+    font-weight: 700;
+    text-align: center;
+    font-family: "Manrope";
+    font-style: normal;
+    color: #515357;
+    top: 10px;
+} /* form meeting information: "New Meeting" */
+
+.modal-meeting form{
+    margin-top: -20px;
+    width: 280px;
+    height: 370px;
+
+} /* form meeting information */
+
+.modal-meeting form .data{
+    height: 45px;
+    width: 280px;
+    margin-left: auto;
+    margin-right: auto;
+    color: #515357;
+    font-family: "Manrope";
+    font-style: normal;
+    font-weight: 600;
+    text-align: left;
+    font-size: 16px;
+    outline: 0;
+    border-width: 0 0 2px;
+    border:none;
+    margin-top: 60px;
+} /* form meeting information: Field Name, Calendar*/
+
+
+form .data input {
+    height: 100%;
+    width: 93%;
+    margin: auto;
+    border: none;
+    color: #7F7B81;
+    font-weight: lighter;
+    font-family: Manrope;
+    font-size: 16px;
+    border-bottom: 1px solid #E7E7E9;
+    padding: 1px 10px;
+    outline: none;
+} /*form meeting information: input */
+
+::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+    color: #7F7B81;
+    font-style: normal;
+    font-weight: lighter;
+    font-family: Manrope;
+    font-size: 16px;
+} /*form meeting information: placeholder */
+
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+    color: #7F7B81;
+    font-style: normal;
+    font-weight: lighter;
+    font-family: Manrope;
+    font-size: 16px;
+    opacity: 1;
+}
+
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+    color: #7F7B81;
+    font-style: normal;
+    font-weight: lighter;
+    font-family: Manrope;
+    font-size: 16px;
+    opacity: 1;
+}
+
+
+form .btn-uploader {
+    margin-top: 70px;
+    height: 40px;
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+    border-radius: 10px;
+} /* button Proceed*/
+
+form .btn-uploader .inner{
+    height: 100%;
+    width: 300%;
+    position: absolute;
+    left: -100%;
+    z-index: -1;
+    background: -webkit-linear-gradient(right, #123886,#4272C7, #123886,#4272C7);
+    transition: all 0.4s;
+}
+
+form .btn-uploader:hover .inner{
+    left: 0;
+}
+
+form .btn-uploader button{
+    height: 100%;
+    width: 100%;
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    cursor: pointer;
+} /* button text Proceed*/
+
+
+
+
+
+
+.containerHeaderUS {
+    padding-top: 20px;
+    margin-left: 70px;
+    margin-right: 70px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+} /* header list user stories */
+
+
+.containerBack {
+    display: flex;
+    align-items: stretch;
+} /* back button */
+
+
+.containerBack img{
+    margin-right: 8px;
+
+}
+/* back button */
+
+#back-button {
+    background: none;
+    border: none;
+    color: #7F7B81;
+    font-family: "Manrope";
+    font-weight: 600;
+    font-style: normal;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+#back-button:hover {
+    text-decoration:underline;
+
+}
+
+#export-button {
+    background: none;
+    border: none;
+    font-size: 16px;
+    font-weight: 600;
+    color: #06369A;
+    cursor: pointer;
+} /* export user stories button*/
+
+#export-button:hover{
+    text-decoration:underline;
+}
+
+.listUserStories table {
+    border-bottom: 1px solid black;
+    border-bottom-color: #E7E7E9;
+    width: 90%;
+    margin: auto;
+    text-align: left;
+    font-family: "Manrope";
+}
+
+.listUserStories table th {
+    color: #515357;
+    font-weight: 600;
+    font-size: 16px;
+}
+
+
+
+
+
+.containerLogin {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    text-align: center;
+    transform: translate(-50%, -50%);
+}
+/* login */
+
+.containerLogin {
+    background: #fff;
+    width: 360px;
+    height: 450px;
+    padding: 30px;
+    box-shadow: 0 0 8px rgba(0,0,0,0.1);
+    border-radius: 20px;
+    background-image: url(/static/assets/login.svg);
+}
+
+.containerLogin .text {
+    font-size: 26px;
+    font-weight: 700;
+    text-align: center;
+    font-family: "Manrope";
+    font-style: normal;
+    color: #18191F;
+}
+
+.btnLogin #loginGoogle {
+    padding: 10px 70px 10px 55px;
+    color: #404040;
+    background-color: #fff;
+    border-color: #E8E8E8;
+    border-radius: 5px;
+    cursor: pointer;
+    bottom: -280px;
+    position: relative;
+    font-family: 'Roboto';
+    font-size: 16px;
+}
+
+.btnLogin #loginLnk {
+    padding: 10px 60px;
+    color: #404040;
+    background-color: #fff;
+    border-color: #E8E8E8;
+    border-radius: 5px;
+    cursor: pointer;
+    bottom: -300px;
+    position: relative;
+    font-family: 'Roboto';
+    font-size: 16px;
+    text-shadow: none;
+}
+
+.wrapperHome {
+    position: sticky;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    overflow-x: auto;
+
+}
+
+.containerMenu {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.containerSearch {
+    font-family: 'Manrope';
+    font-size: 14px;
+    color: #7F7B81;
+    border-radius: 30px;
+    border-width: thin;
+    margin: 5px;
+    border-style: none;
+    background: #F3F2F3;
+    width: 300px;
+    padding-left: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.containerSearch .inputSearch {
+    border-style: none;
+    background: none;
+    width: 85%;
+    padding-top: revert;
+}
+
+.containerSearch .searchBtn {
+    color: #9B9B9D;
+    box-shadow: #7F7B81;
+    cursor: pointer;
+    padding-right: 10px;
+}
+
+
+.containerSearch input {
+    font-family: Manrope;
+    font-size: 14px;
+    color: #7F7B81;
+    outline: none;
+}
+
+.home-container {
+    margin: 50px;
+    font-family: Manrope;
+    font-size: 22px;
+    color: #18191F;
+}
+
+.home-title-last-opened {
+    font-family: Manrope;
+    font-size: 22px;
+    color: #18191F;
+    font-weight: bold;
+}
+
+.last-opened-card-wrapper {
+    box-sizing: border-box;
+    z-index: 1;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    justify-content: normal;
+    align-items: center;
+
+}
+
+.last-opened-card {
+    margin-right: 20px;
+    margin-left: 20px;
+}
+
+.last-opened-project-img {
+    display: inline-block;
+    box-sizing: border-box;
+    z-index: 100;
+    margin-left: auto;
+    margin-right: auto;
+    background: #F8FAFF;
+    padding: 20px 35px;
+    border-radius: 10px;
+    box-shadow:0px 5px 10px 0 rgba(0,0,0,0.16);
+}
+
+.last-opened-meeting-img {
+    display: inline-block;
+    box-sizing: border-box;
+    z-index: 1;
+    margin-left: auto;
+    margin-right: auto;
+    background: #F8FAFF;
+    padding: 20px 35px;
+    border-radius: 10px;
+    box-shadow:0px 5px 10px 0 rgba(0,0,0,0.16);
+}
+
+.last-opened-file-title {
+    font-family: Manrope;
+    font-size: 16px;
+    color: #18191F;
+    margin-top: 15px;
+    font-weight: lighter;
+    padding: 5px 10px;
+}
+
+.home-title-my-project {
+    font-family: Manrope;
+    font-size: 22px;
+    color: #18191F;
+    font-weight: bold;
+}
+
+.listProject table {
+    font-family: Manrope;
+    font-size: 18px;
+    color: #18191F;
+    border-bottom: 1px solid black;
+    border-bottom-color: #E7E7E9;
+    width: 100%;
+    margin: auto;
+    text-align: left;
+}
+
+
+
+.listProject table th {
+    color: #515357;
+    font-weight: 600;
+    font-size: 16px;
+}
+
+
+#new-project {
+    padding: 8px 15px;
+    color: #06369A;
+    background-color: #fff;
+    border-color: #06369A;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 0px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    font-family: 'Roboto';
+    font-size: 16px;
+}
+
+
+
+.project-header {
+    margin-left: 70px;
+    margin-right: 70px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.project-header-info {
+    color: #18191F;
+    font-family: Manrope;
+
+}
+
+.project-header-info-company {
+    font-family: Manrope;
+    font-size: 22px;
+    color: #18191F;
+    font-weight: bold;
+}
+.project-header-info-title {
+    font-family: Manrope;
+    font-size: 22px;
+    color: #18191F;
+    font-weight: bold;
+}
+.project-header-info-desc {
+    font-family: Manrope;
+    font-size: 16px;
+    color: #18191F;
+    font-weight: lighter;
+    width: 65%;
+    text-align: justify;
+}
+
+.project-header-brief {
+    font-family: Manrope;
+    font-size: 16px;
+    color: #18191F;
+    font-weight: lighter;
+    width: 50%;
+    text-align: justify;
+    background-color: #ffffff;
+    box-shadow:0px 5px 10px 0 rgba(0,0,0,0.16);
+    border-radius: 10px;
+    padding: 10px;
+    display: grid;
+    grid-gap: 5px;
+
+}
+
+.project-button-wrapper {
+    margin-left: 70px;
+    margin-right: 70px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.btn-add-new-meeting {
+    padding: 8px 15px;
+    color: #06369A;
+    background-color: #fff;
+    border-color: #06369A;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    font-family: 'Roboto';
+    font-size: 16px;
+    display: inline-block;
+    justify-content: space-between;
+}
+
+#export-all-button {
+    background: none;
+    border: none;
+    font-size: 16px;
+    font-weight: 600;
+    color: #06369A;
+    cursor: pointer;
+    display: inline-block;
+    justify-content: space-between;
+
+}
+
+.meeting-list table {
+    font-family: Manrope;
+    font-size: 18px;
+    color: #18191F;
+    border-bottom: 1px solid black;
+    border-bottom-color: #E7E7E9;
+    width: 90%;
+    margin: auto;
+    text-align: left;
+}
+
+
+
+.meeting-list table th {
+    color: #515357;
+    font-weight: 600;
+    font-size: 16px;
+}
+
+
+
+.my-project-wrapper{
+    padding-top: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.my-project-wrapper .btn-add-new {
+    background: none;
+    border: none;
+    font-size: 16px;
+    font-weight: 600;
+    color: #06369A;
+    cursor: pointer;
+}
+
+
+
+
+
+*, *::after, *::before {
+    box-sizing: border-box;
+}
+
+.modal-project {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    transition: 200ms ease-in-out;
+    z-index: 10;
+    background-color: white;
+    text-align: center;
+    width: 360px;
+    height: 580px;
+    padding: 30px;
+    box-shadow: 0 0 8px rgba(0,0,0,0.1);
+    border-radius: 20px;
+}
+
+.modal-project.active {
+    transform: translate(-50%, -50%) scale(1);
+}
+
+
+#overlay {
+    position: fixed;
+    opacity: 0;
+    transition: 200ms ease-in-out;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, .5);
+    pointer-events: none;
+}
+
+#overlay.active {
+    opacity: 1;
+    pointer-events: all;
+}
+
+
+.new-project-header {
+    font-size: 22px;
+    font-weight: 700;
+    text-align: center;
+    font-family: "Manrope";
+    font-style: normal;
+    color: #515357;
+    top: 10px;
+} /* form meeting information: "New Meeting" */
+
+.new-project-body form{
+    margin-top: -30px;
+    width: 280px;
+    height: 370px;
+
+} /* form meeting information */
+
+.modal-body form .data-new-project{
+    height: 45px;
+    width: 280px;
+    margin-left: auto;
+    margin-right: auto;
+    color: #515357;
+    font-family: "Manrope";
+    font-style: normal;
+    font-weight: 600;
+    text-align: left;
+    font-size: 16px;
+    outline: 0;
+    border-width: 0 0 2px;
+    border:none;
+    margin-top: 40px;
+} /* form meeting information: Field Name, Calendar*/
+
+
+form .data-new-project input {
+    height: 100%;
+    width: 100%;
+    border: none;
+    color: #7F7B81;
+    font-weight: lighter;
+    font-family: Manrope;
+    font-size: 14px;
+    border-bottom: 1px solid #E7E7E9;
+    outline: none;
+} /*form meeting information: input */
+
+form .data-new-project textarea {
+    margin-top: 10px;
+    color: #7F7B81;
+    font-weight: lighter;
+    font-family: Manrope;
+    font-size: 14px;
+    padding: 10px;
+    outline: #18191F;
+    border-style: solid;
+    border-color: #E7E7E9;
+    border-width: 1px;
+    border-radius: 7px;
+    resize: none;
+    width: 100%;
+}
+
+::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+    color: #7F7B81;
+    font-style: normal;
+    font-weight: lighter;
+    font-family: Manrope;
+    font-size: 14px;
+} /*form meeting information: placeholder */
+
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+    color: #7F7B81;
+    font-style: normal;
+    font-weight: lighter;
+    font-family: Manrope;
+    font-size: 14px;
+    opacity: 1;
+}
+
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+    color: #7F7B81;
+    font-style: normal;
+    font-weight: lighter;
+    font-family: Manrope;
+    font-size: 14px;
+    opacity: 1;
+}
+
+
+form .btn-new-project {
+    margin-top: 170px;
+    height: 40px;
+    width: 100%;
+    overflow: hidden;
+    border-radius: 10px;
+    position: relative;
+} /* button Proceed*/
+
+form .btn-new-project .inner{
+    height: 100%;
+    width: 300%;
+    position: absolute;
+    left: -100%;
+    z-index: -1;
+    background: -webkit-linear-gradient(right, #123886,#4272C7, #123886,#4272C7);
+    transition: all 0.4s;
+}
+
+form .btn-new-project:hover .inner{
+    left: 0;
+}
+
+form .btn-new-project button{
+    height: 100%;
+    width: 100%;
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    cursor: pointer;
+} /* button text Proceed*/
+
+
+.new-project-header {
+    padding-top: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.new-project-header .close-button {
+    cursor: pointer;
+    border: none;
+    outline: none;
+    background: none;
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: #515357;
+}
+
+.new-project-body{
+    padding-left: 5px;
+}
+
+
+
+
+

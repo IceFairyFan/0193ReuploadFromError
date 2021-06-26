@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Register</title>
+    <link href="css/styles.css" rel="stylesheet" />
+    <link rel="icon" href="assets/icon.svg">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            var fd = new FormData();
+            $("#btn_register").click(function() {
+                var name = $("#user_name").val();
+                var email = $("#user_email").val();
+                var password = $("#user_password").val();
+                var repassword = $("#user_repassword").val();
+                fd.append('name', name);
+                fd.append('email', email);
+                fd.append('password', password);
+                if (name == '' || email == '' || password == '' || repassword == '') {
+                    alert("Please fill all fields.");
+                } else if ((password.length) < 8) {
+                    alert("Password should at least 8 character in length.");
+                } else if (!(password).match(repassword)) {
+                    alert("Your passwords don't match. Try again.");
+                } else if (name != '' && email != '' && password != '' && repassword != ''){
+
+                    $.ajax({
+                        url: window.location.origin+'/register/post',
+                        type: 'POST',
+                        data:fd,
+                        contentType:false,
+                        processData:false,
+                        success: function(tmp){
+                            console.log(tmp);
+                            alert("Data entered.");
+                        },
+                        error : function(e){
+                            console.log("ERROR", e);
+                            alert(e);
+                        },
+                        done : function(e){
+                            console.log("DONE");
+                        }
+                    });
+                }
+            });
+        });
+
+
+
+    </script>
+</head>
+
+
+<body>
+<div class="content-wrapper-register">
+    <div class="register-screen">
+        <div class="register-left">
+        </div>
+
+        <div class="register-right">
+            <div class="containerLogo">
+                <img src="assets/Logo.svg" alt="logo" class="logo">
+            </div>
+
+            <form class="form-register" method="post" action="/register">
+                <div class="title-register">Create Account</div>
+                <div class="register-action">
+                    <h4>Full Name</h4>
+                    <label>
+                        <input type="text" placeholder="Enter your name" id="user_name" required class="validate" />
+                    </label>
+                    <h4>Your Email</h4>
+                    <label>
+                        <input type="email" placeholder="Enter your email" id="user_email" required class="validate" />
+                    </label>
+                    <h4>Password</h4>
+                    <label>
+                        <input type="password" placeholder="Enter your password" id="user_password" required class="validate" />
+                    </label>
+                    <h4>Repeat Password</h4>
+                    <label>
+                        <input type="password" placeholder="Repeat your password" id="user_repassword" required class="validate" />
+                    </label>
+                    <br>
+                    <div class="btn-register">
+                        <div class="inner"></div>
+                        <button type="submit" id="btn_register" onclick="location.href='Homepage.html';">Sign Up</button>
+                    </div>
+                    <div class="login-entry">
+                        <a>Already have an account?</a>
+                        <a href="/login" style="color:#06369A; text-decoration: none">Login now</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+
